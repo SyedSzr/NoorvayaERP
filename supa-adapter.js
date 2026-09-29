@@ -6,8 +6,9 @@
   window.ERP_HOSTED = true;
   const cfg = window.ERP_CONFIG || {};
   const $ = s => document.querySelector(s);
-  const configured = cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && !/YOUR-/.test(cfg.SUPABASE_URL + cfg.SUPABASE_ANON_KEY);
-  const sb = configured && window.supabase ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
+  const apiKey = cfg.SUPABASE_ANON_KEY || cfg.SUPABASE_PUBLISHABLE_KEY || cfg.SUPABASE_KEY;
+  const configured = cfg.SUPABASE_URL && apiKey && !/YOUR-/.test(cfg.SUPABASE_URL + apiKey);
+  const sb = configured && window.supabase ? window.supabase.createClient(cfg.SUPABASE_URL, apiKey) : null;
   window.ERP_SB = sb;
 
   /* ---------- sign-in screen ---------- */
